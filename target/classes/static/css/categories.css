@@ -1,0 +1,153 @@
+  /* Thanh tìm kiếm */
+  .search-container {
+    display: flex;
+    align-items: center;
+    position: sticky;
+    margin-left: 270px;
+    margin-top: 20px;
+    margin-right: 20px;
+  }
+  
+  .search-input {
+    width: 70%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .search-button {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 10px;
+    /*margin: 0px 10px;*/
+  }
+  
+  .search-button:hover {
+    background-color: #555;
+  }
+  
+  /* Các nút Thêm và Sửa */
+  .action-buttons {
+    display: inline-block;
+    gap: 10px;
+    margin-left: 130px;
+  }
+  
+  .action-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .action-btn:hover {
+    background-color: #555;
+  }
+  
+  .table-title{
+    position: sticky;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0px;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .table th {
+    position: sticky;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    border: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  .table td {
+    text-align: center;
+  }
+  
+  .table tr:hover {
+    background-color: #cfcbcb;
+  }
+  
+  /* Modal styling */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: left;
+  }
+  
+  .close-button {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .close-button:hover {
+    color: red;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    width: 95%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+  
+  .submit-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #0056b3;
+  }
+  

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Trang chủ</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <div class="news-section">
+        <h2>Dashboard</h2>
+        <div class="news-grid">
+          <div class="news-item">
+            <img src="/images/product1.jpg" alt="News 1" />
+            <p>Tin tức 1: Khuyến mãi lớn</p>
+          </div>
+          <div class="news-item">
+            <img src="/images/product2.jpg" alt="News 2" />
+            <p>Tin tức 2: Sản phẩm mới</p>
+          </div>
+          <div class="news-item">
+            <img src="/images/product3.jpg" alt="News 3" />
+            <p>Tin tức 3: Chính sách đổi trả</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

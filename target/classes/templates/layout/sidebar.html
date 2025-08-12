@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <link rel="stylesheet" href="/css/style.css" />
+    <title>Sidebar</title>
+  </head>
+  <body>
+    <div th:fragment="sidebar">
+      <div class="sidebar" id="sidebar">
+        <!-- Tiêu đề sidebar -->
+        <div class="menu-title">MENU</div>
+
+        <!-- Các mục sidebar -->
+        <div class="menu-items">
+          <a href="/" th:href="@{/}">
+            <i class="fa-solid fa-house"></i> Trang chủ
+          </a>
+          <a href="/categories" th:href="@{/categories}">
+            <i class="fa-solid fa-layer-group"></i> Loại hàng
+          </a>
+          <a href="/products" th:href="@{/products}">
+            <i class="fas fa-box"></i> Sản phẩm
+          </a>
+          <a href="/customers" th:href="@{/customers}">
+            <i class="fa-solid fa-user"></i> Khách hàng
+          </a>
+          <a href="/orders" th:href="@{/orders}">
+            <i class="fa-solid fa-note-sticky"></i> Đơn hàng
+          </a>
+          <a href="/inventory" th:href="@{/inventory}">
+            <i class="fa-solid fa-boxes-stacked"></i> Kho hàng
+          </a>
+          <a href="/suppliers" th:href="@{/suppliers}">
+            <i class="fas fa-truck"></i> Nhà cung cấp
+          </a>
+          <a href="/employees" th:href="@{/employees}">
+            <i class="fa-solid fa-address-book"></i> Nhân viên
+          </a>
+          <a href="/payments" th:href="@{/payments}">
+            <i class="fa-solid fa-credit-card"></i> Thanh toán
+          </a>
+        </div>
+
+        <!-- Mục đăng nhập -->
+        <div class="login-item">
+          <div th:if="${session.user != null}" class="user-dropdown">
+            <span id="user-icon" class="dropdown-toggle">
+              <i class="fa-solid fa-circle-user"></i>
+              <span th:text="${session.user.username}"></span>
+            </span>
+            <div id="user-menu" class="user-dropdown-menu hidden">
+              <a href="/logout" th:href="@{/logout}">Đăng xuất</a>
+            </div>
+          </div>
+          <div th:if="${session.user == null}">
+            <a href="/login" th:href="@{/login}">
+              <i class="fa-solid fa-right-to-bracket"></i> Đăng nhập
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="/js/sidebar.js" defer></script>
+</html>

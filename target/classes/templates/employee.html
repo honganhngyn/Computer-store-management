@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/employee.css" />
+    <title>Danh sách nhân viên</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+    <div class="search-container">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Tìm kiếm..."
+      />
+      <button id="searchButton" class="search-button">
+        <i class="fas fa-search"></i>
+      </button>
+
+      <!-- Nút Thêm -->
+      <div class="action-buttons">
+        <button id="addButton" class="action-btn">Thêm nhân viên</button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <h1 class="table-title">Danh sách nhân viên</h1>
+      <table id="employeeTable" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên nhân viên</th>
+            <th>Username</th>
+            <th>Quyền Admin</th>
+            <th>Chức vụ</th>
+            <th>Lương</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Ngày vào làm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="employee : ${employees}">
+            <td th:text="${employee.employeeId}"></td>
+            <td th:text="${employee.name}"></td>
+            <td th:text="${employee.username}"></td>
+            <td th:text="${employee.isAdmin ? 'Yes' : 'No'}"></td>
+            <td th:text="${employee.position}"></td>
+            <td th:text="${employee.formattedSalary}"></td>
+            <td th:text="${employee.email}"></td>
+            <td th:text="${employee.phone}"></td>
+            <td th:text="${employee.formattedDate}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Form thêm nhân viên -->
+    <div id="addEmployeeModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h2>Thêm nhân viên mới</h2>
+        <form id="addEmployeeForm" method="post" action="/employees/add">
+          <div class="form-group">
+            <label for="employeeName">Tên nhân viên</label>
+            <input
+              type="text"
+              id="employeeName"
+              name="name"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="employeeUsername">Username</label>
+            <input
+              type="text"
+              id="employeeUsername"
+              name="username"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="employeeIsAdmin">Quyền Admin</label>
+            <select id="employeeIsAdmin" name="isAdmin">
+              <option value="false">Không</option>
+              <option value="true">Có</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="employeePosition">Chức vụ</label>
+            <input
+              type="text"
+              id="employeePosition"
+              name="position"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="employeeSalary">Lương</label>
+            <input
+              type="number"
+              id="employeeSalary"
+              name="salary"
+              step="0.01"
+              min="0"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="employeeEmail">Email</label>
+            <input
+              type="email"
+              id="employeeEmail"
+              name="email"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="employeePhone">Số điện thoại</label>
+            <input
+              type="number"
+              id="employeePhone"
+              name="phone"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Thêm</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Form sửa nhân viên -->
+    <div id="editEmployeeModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" id="closeEditModal">&times;</span>
+        <h2>Sửa thông tin nhân viên</h2>
+        <form id="editEmployeeForm" method="post" action="/employees/update">
+          <input type="hidden" id="editEmployeeId" name="employeeId" />
+          <div class="form-group">
+            <label for="editEmployeeName">Tên nhân viên</label>
+            <input
+              type="text"
+              id="editEmployeeName"
+              name="name"
+              value=""
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editEmployeeUsername">Username</label>
+            <input
+              type="text"
+              id="editEmployeeUsername"
+              name="username"
+              autocomplete="off"
+              value=""
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editEmployeeIsAdmin">Quyền Admin</label>
+            <select id="editEmployeeIsAdmin" name="isAdmin">
+              <option value="false">Không</option>
+              <option value="true">Có</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="editEmployeePosition">Chức vụ</label>
+            <input
+              type="text"
+              id="editEmployeePosition"
+              name="position"
+              value=""
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editEmployeeSalary">Lương</label>
+            <input
+              type="number"
+              id="editEmployeeSalary"
+              name="salary"
+              step="0.01"
+              min="0"
+              autocomplete="off"
+              value=""
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editEmployeeEmail">Email</label>
+            <input
+              type="email"
+              id="editEmployeeEmail"
+              name="email"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editEmployeePhone">Số điện thoại</label>
+            <input
+              type="number"
+              id="editEmployeePhone"
+              name="phone"
+              value=""
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Cập nhật</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/employee.js"></script>
+  </body>
+</html>

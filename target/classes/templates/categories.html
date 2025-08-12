@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/categories.css" />
+    <title>Danh sách loại sản phẩm</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+    <div class="search-container">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Tìm kiếm..."
+      />
+      <button id="searchButton" class="search-button">
+        <i class="fas fa-search"></i>
+      </button>
+
+      <!-- Nút Thêm và Sửa -->
+      <div class="action-buttons">
+        <button id="addButton" class="action-btn">Thêm loại sản phẩm</button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <h1 class="table-title">Danh sách loại sản phẩm</h1>
+      <table id="categoryTable" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên loại sản phẩm</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="category : ${categories}">
+            <td th:text="${category.categoryId}"></td>
+            <td th:text="${category.name}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Form thêm sản phẩm -->
+    <div id="addCategoryModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h2>Thêm loại sản phẩm mới</h2>
+        <form id="addCategoryForm" method="post" action="/categories/add">
+          <div class="form-group">
+            <label for="categoryName">Tên loại sản phẩm</label>
+            <input
+              type="text"
+              id="categoryName"
+              name="name"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Thêm</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Form sửa sản phẩm -->
+    <div id="editCategoryModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" id="closeEditModal">&times;</span>
+        <h2>Sửa loại sản phẩm</h2>
+        <form id="editCategoryForm" method="post" action="/categories/update">
+          <input type="hidden" id="editCategoryId" name="categoryId" />
+          <div class="form-group">
+            <label for="editCategoryName">Tên loại sản phẩm</label>
+            <input
+              type="text"
+              id="editCategoryName"
+              name="name"
+              value=""
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Cập nhật</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/categories.js"></script>
+  </body>
+</html>

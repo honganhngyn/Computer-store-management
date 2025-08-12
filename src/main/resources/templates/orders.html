@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/orders.css" />
+    <title>Danh sách đơn hàng</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+    <div class="search-container">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Tìm kiếm..."
+      />
+      <button id="searchButton" class="search-button">
+        <i class="fas fa-search"></i>
+      </button>
+
+      <!-- Nút Thêm và Sửa -->
+      <div class="action-buttons">
+        <button id="addButton" class="action-btn">Thêm đơn hàng</button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <h1 class="table-title">Danh sách đơn hàng</h1>
+      <table id="orderTable" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>ID Khách hàng</th>
+            <th>ID Nhân viên</th>
+            <th>Ngày đặt hàng</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="order : ${orders}">
+            <td th:text="${order.orderId}"></td>
+            <td th:text="${order.customerId}"></td>
+            <td th:text="${order.employeeId}"></td>
+            <td th:text="${order.formattedDate}"></td>
+            <td th:text="${order.status}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Form thêm đơn hàng -->
+    <div id="addOrderModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h2>Thêm đơn hàng mới</h2>
+        <form id="addOrderForm" method="post" action="/orders/add">
+          <div class="form-group">
+            <label for="customerId">ID Khách hàng</label>
+            <input
+              type="number"
+              id="customerId"
+              name="customerId"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="employeeId">ID Nhân viên</label>
+            <input
+              type="number"
+              id="employeeId"
+              name="employeeId"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="orderDate">Ngày đặt hàng</label>
+            <input
+              type="datetime-local"
+              id="orderDate"
+              name="orderDate"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="status">Trạng thái</label>
+            <input
+              type="text"
+              id="status"
+              name="status"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Thêm</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Form sửa đơn hàng -->
+    <div id="editOrderModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" id="closeEditModal">&times;</span>
+        <h2>Sửa đơn hàng</h2>
+        <form id="editOrderForm" method="post" action="/orders/updateStatus">
+          <input type="hidden" id="editOrderId" name="orderId" />
+          <div class="form-group">
+            <label for="editStatus">Trạng thái</label>
+            <input
+              type="text"
+              id="editStatus"
+              name="status"
+              value=""
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Cập nhật</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/orders.js"></script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/suppliers.css" />
+    <title>Danh sách nhà cung cấp</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <div th:replace="~{layout/header :: header}"></div>
+
+    <!-- Sidebar -->
+    <div th:replace="~{layout/sidebar :: sidebar}"></div>
+
+    <div class="search-container">
+      <input
+        type="text"
+        id="searchInput"
+        class="search-input"
+        placeholder="Tìm kiếm..."
+      />
+      <button id="searchButton" class="search-button">
+        <i class="fas fa-search"></i>
+      </button>
+
+      <!-- Nút Thêm và Sửa -->
+      <div class="action-buttons">
+        <button id="addButton" class="action-btn">Thêm nhà cung cấp</button>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+      <h1 class="table-title">Danh sách nhà cung cấp</h1>
+      <table id="supplierTable" class="table table-bordered">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên nhà cung cấp</th>
+            <th>Email</th>
+            <th>Số điện thoại</th>
+            <th>Địa chỉ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="supplier : ${suppliers}">
+            <td th:text="${supplier.supplierId}"></td>
+            <td th:text="${supplier.name}"></td>
+            <td th:text="${supplier.email}"></td>
+            <td th:text="${supplier.phone}"></td>
+            <td th:text="${supplier.address}"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Modal Form thêm sản phẩm -->
+    <div id="addSupplierModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" id="closeModal">&times;</span>
+        <h2>Thêm nhà cung cấp</h2>
+        <form id="addSupplierForm" method="post" action="/suppliers/add">
+          <div class="form-group">
+            <label for="supplierName">Tên nhà cung cấp</label>
+            <input
+              type="text"
+              id="supplierName"
+              name="name"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="supplierEmail">Email</label>
+            <textarea
+              type="text"
+              id="supplierEmail"
+              name="email"
+              autocomplete="off"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="supplierPhone">Số điện thoại</label>
+            <input
+              type="number"
+              id="supplierPhone"
+              name="phone"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="supplierAddress">Địa chỉ</label>
+            <input
+              type="text"
+              id="supplierAddress"
+              name="address"
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Thêm</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Form sửa sản phẩm -->
+    <div id="editSupplierModal" class="modal" style="display: none">
+      <div class="modal-content">
+        <span class="close-button" id="closeEditModal">&times;</span>
+        <h2>Sửa thông tin nhà cung cấp</h2>
+        <form id="editSupplierForm" method="post" action="/suppliers/update">
+          <input type="hidden" id="editSupplierId" name="supplierId" />
+          <div class="form-group">
+            <label for="editSupplierName">Tên nhà cung cấp</label>
+            <input
+              type="text"
+              id="editSupplierName"
+              name="name"
+              value=""
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editSupplierEmail">Email</label>
+            <textarea
+              type="text"
+              id="editSupplierEmail"
+              name="email"
+              autocomplete="off"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="editSupplierPhone">Số điện thoại</label>
+            <input
+              type="number"
+              id="editSupplierPhone"
+              name="phone"
+              value=""
+              autocomplete="off"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editSupplierAddress">Địa chỉ</label>
+            <input
+              type="text"
+              id="editSupplierAddress"
+              name="address"
+              value=""
+              autocomplete="off"
+              required
+            />
+          </div>
+          <button type="submit" class="submit-btn">Cập nhật</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="/js/suppliers.js"></script>
+  </body>
+</html>
